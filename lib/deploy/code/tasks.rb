@@ -11,6 +11,8 @@
 
 Deploy::Code.within_capistrano do
 
+  puts "Loading standard Deploy::Code tasks"
+
   raise 'APPLICATION is not specified' unless ENV['APPLICATION']
   raise 'SCM_SERVER is not specified' unless ENV['SCM_SERVER']
   raise 'SCM_NAMESPACE is not specified' unless ENV['SCM_NAMESPACE']

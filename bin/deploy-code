@@ -12,7 +12,6 @@ if task == "deploy"
   require "capistrano"
   require "capistrano/cli"
   require "deploy/code"
-  require "deploy/code/tasks"
 
   name = ARGV[1] || raise("You need to specify ID of application")
 
@@ -23,8 +22,9 @@ if task == "deploy"
   defaults.each { |k, v| ENV["#{k}"] = v }
 
   puts "Running cap deploy"
-  parameters = [task]
-  Capistrano::CLI.parse(parameters).execute!
+  cap = Capistrano::Configuration.new
+  cap.require "deploy/code/tasks"
+  cap.deploy
 
 elsif task == "init"
 
