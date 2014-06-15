@@ -24,11 +24,13 @@ if task == "deploy"
   puts "Environment:"
   puts ENV.to_h.to_yaml
 
-  puts "Running cap deploy"
+  puts "Setting up cap"
   cap = Capistrano::Configuration.new
   cap.logger = Capistrano::Logger::TRACE
   cap.load "deploy"
   cap.require "deploy/code/tasks"
+
+  puts "Run cap deploy"
   cap.deploy
 
 elsif task == "init"
