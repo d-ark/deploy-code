@@ -21,12 +21,10 @@ if task == "deploy"
 
   config.each { |k, v| defaults[k] = v if v }
   defaults.each { |k, v| ENV["#{k}"] = v if v }
-  puts "Environment:"
-  puts ENV.to_h.to_yaml
 
   puts "Setting up cap"
   cap = Capistrano::Configuration.new
-  cap.set(:password) { Capistrano::CLI.password_prompt }
+  cap.logger = Capistrano::Logger.new output: io
   cap.load "deploy"
   cap.require "deploy/code/tasks"
 
