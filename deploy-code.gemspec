@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["waterlink000@gmail.com"]
   spec.summary       = %q{Used to deploy your apps from git easily. Highly customizable.}
   spec.description   = %q{}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/waterlink/deploy-code"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
