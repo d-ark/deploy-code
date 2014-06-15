@@ -11,6 +11,7 @@ if task == "deploy"
 
   require "capistrano"
   require "capistrano/cli"
+  require "deploy/code"
   require "deploy/code/tasks"
 
   name = ARGV[1] || raise("You need to specify ID of application")
