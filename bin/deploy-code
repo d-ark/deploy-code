@@ -24,7 +24,7 @@ if task == "deploy"
 
   puts "Setting up cap"
   cap = Capistrano::Configuration.new
-  cap.logger = Capistrano::Logger.new output: STDOUT
+  cap.logger = Capistrano::Logger::TRACE
   cap.load "deploy"
   cap.require "deploy/code/tasks"
 
