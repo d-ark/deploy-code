@@ -3,7 +3,7 @@
 require "yaml"
 require "deploy/code/version"
 
-puts "deploy-code version #{Deploy::Code::Version}"
+puts "deploy-code version #{Deploy::Code::VERSION}"
 
 task = ARGV[0] || "deploy"
 
