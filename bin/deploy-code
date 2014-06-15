@@ -30,6 +30,9 @@ if task == "deploy"
   cap.load "deploy"
   cap.require "deploy/code/tasks"
 
+  require "pry"
+  binding.pry
+
   puts "Run cap deploy"
   cap.deploy
 
