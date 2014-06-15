@@ -13,13 +13,13 @@ if task == "deploy"
   require "capistrano/cli"
   require "deploy/code/tasks"
 
-  name = ARGV[1] || raise('You need to specify ID of application')
+  name = ARGV[1] || raise("You need to specify ID of application")
 
   puts "Loading configuration for #{name}"
   defaults = YAML::load_file "config/defaults.yml"
   defaults.merge YAML::load_file "config/#{name}.yml"
 
-  defaults.each { |k, v| ENV[k] = v }
+  defaults.each { |k, v| ENV["#{k}"] = v }
 
   puts "Running cap deploy"
   parameters = [task]
@@ -47,7 +47,7 @@ elsif task == "init"
 
 elsif task == "new"
 
-  name = ARGV[1] || raise('You need to specify ID of application')
+  name = ARGV[1] || raise("You need to specify ID of application")
 
   config = {
     APPLICATION: nil,
