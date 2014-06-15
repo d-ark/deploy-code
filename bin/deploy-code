@@ -20,6 +20,8 @@ if task == "deploy"
   defaults.merge YAML::load_file "config/#{name}.yml"
 
   defaults.each { |k, v| ENV["#{k}"] = v }
+  puts "Environment:"
+  puts ENV.to_h.to_yaml
 
   puts "Running cap deploy"
   cap = Capistrano::Configuration.new
