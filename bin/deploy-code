@@ -26,6 +26,7 @@ if task == "deploy"
 
   puts "Setting up cap"
   cap = Capistrano::Configuration.new
+  cap.set(:password) { Capistrano::CLI.password_prompt }
   cap.load "deploy"
   cap.require "deploy/code/tasks"
 
