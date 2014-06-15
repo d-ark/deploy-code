@@ -1,0 +1,70 @@
+#!/usr/bin/env ruby
+
+require "yaml"
+require "deploy/code/version"
+
+puts "deploy-code version #{Deploy::Code::Version}"
+
+task = ARGV[0] || "deploy"
+
+if task == "deploy"
+
+  require "capistrano"
+  require "capistrano/cli"
+  require "deploy/code/tasks"
+
+  name = ARGV[1] || raise('You need to specify ID of application')
+
+  puts "Loading configuration for #{name}"
+  defaults = YAML::load_file "config/defaults.yml"
+  defaults.merge YAML::load_file "config/#{name}.yml"
+
+  defaults.each { |k, v| ENV[k] = v }
+
+  puts "Running cap deploy"
+  parameters = [task]
+  Capistrano::CLI.parse(parameters).execute!
+
+elsif task == "init"
+
+  Dir.mkdir("config") unless File.directory?("config")
+
+  defaults = {
+    SCM_SERVER: "github.com",
+    SCM_NAMESPACE: nil,
+    BRANCH: nil,
+    RAILS_ENV: nil,
+    DEPLOY_HOME: nil,
+    CUSTOM_FOLDER: nil,
+    SERVERS: nil,
+    MODULES: ""
+  }
+
+  puts "Writing defaults configuration file"
+  File.open("config/defaults.yml", "w") { |f| f.write defaults.to_yaml }
+
+  puts "You are free to edit config/defaults.yml as you wish"
+
+elsif task == "new"
+
+  name = ARGV[1] || raise('You need to specify ID of application')
+
+  config = {
+    APPLICATION: nil,
+    SCM_SERVER: nil,
+    SCM_NAMESPACE: nil,
+    BRANCH: nil,
+    RAILS_ENV: nil,
+    DEPLOY_HOME: nil,
+    CUSTOM_FOLDER: nil,
+    SERVERS: nil,
+    MODULES: nil
+  }
+
+  puts "Writing empty configuration to #{name} file"
+  File.open("config/#{name}.yml", "w") { |f| f.write config.to_yaml }
+
+  puts "You are free to edit config/#{name}.yml as you wish"
+
+end
+
