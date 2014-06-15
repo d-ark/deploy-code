@@ -17,9 +17,10 @@ if task == "deploy"
 
   puts "Loading configuration for #{name}"
   defaults = YAML::load_file "config/defaults.yml"
-  defaults.merge YAML::load_file "config/#{name}.yml"
+  config = YAML::load_file "config/#{name}.yml"
 
-  defaults.each { |k, v| ENV["#{k}"] = v }
+  config.each { |k, v| defaults[k] = v if v }
+  defaults.each { |k, v| ENV["#{k}"] = v if v }
   puts "Environment:"
   puts ENV.to_h.to_yaml
 
