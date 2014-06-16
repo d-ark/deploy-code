@@ -36,6 +36,8 @@ Deploy::Code.within_capistrano do
     role :app, server
   end
 
+  set :user, (ENV['USER'] || 'user')
+
 end
 
 (ENV['MODULES'] || '').split(',').each do |name|
