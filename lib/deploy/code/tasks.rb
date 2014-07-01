@@ -32,6 +32,7 @@ Deploy::Code.within_capistrano do
   set :normalize_asset_timestamps, false
   set :git_shallow_clone, 1
 
+  set :scm_verbose, 10
   set :verbose, 10
 
   ENV['SERVERS'].split(',').each do |server|
